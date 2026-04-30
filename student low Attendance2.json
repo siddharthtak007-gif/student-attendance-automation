@@ -1,0 +1,139 @@
+{
+  "name": "student low Attendance2",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1dCqrHJ5QAwJdtjYYeJz9bfwrcJN5n7rxkhBh6U--u-M",
+          "mode": "list",
+          "cachedResultName": "data (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dCqrHJ5QAwJdtjYYeJz9bfwrcJN5n7rxkhBh6U--u-M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 722724790,
+          "mode": "list",
+          "cachedResultName": "Form responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dCqrHJ5QAwJdtjYYeJz9bfwrcJN5n7rxkhBh6U--u-M/edit#gid=722724790"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "64f89d71-6faa-4244-8fe4-39bf06568742",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "BN55AzhLHmb6NpmH",
+          "name": "Google Sheets Trigger OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6406f552-d48e-4d46-b7ae-911b9a2fc479",
+              "leftValue": "={{ $json.Score }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "6658fa92-fa56-44e6-ac22-d58311b2b948",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "result you pass",
+        "message": "=you pass the exam [{{ $json.Score }}] is your score",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        -96
+      ],
+      "id": "f7071eb9-a2c8-424a-8a65-36cc2f627dd9",
+      "name": "Send a message",
+      "webhookId": "97bc4a18-0821-42dc-a0a8-4fe06d90949b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NrnUFR38JDNyZZd3",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "12889034-d754-4644-9384-a70aaf8ef490",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4e0a102403b75c500652ff05e2b71bd6a0c5875584495bf0fb7c8ce452313e8e"
+  },
+  "id": "AOOEhDr0e7OBR76I",
+  "tags": []
+}
